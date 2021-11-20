@@ -9,5 +9,7 @@ btn.addEventListener("click", (e) => {
     user: user_name,
     pass: password,
   };
-  console.log(obj);
+  arr.push(obj);
+  localStorage.setItem("user_back", JSON.stringify(arr));
+  console.log();
 });
