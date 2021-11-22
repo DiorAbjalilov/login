@@ -1,30 +1,32 @@
-function sigin(e) {
-  e.preventDefault();
+let btn = document.querySelector("button");
+
+btn.addEventListener("click", (e) => {
   let user_name = document.querySelector("#name").value;
   let email = document.querySelector("#email").value;
-  let password = document.querySelector("#password").value;
-  let obj = {
+  let pass = document.querySelector("#password").value;
+  let form_date = JSON.parse(localStorage.getItem("formDate")) || [];
+  form_date.push({
     user: user_name,
     email: email,
-    pass: password,
-  };
-  if (user_name && password) {
-    let json = JSON.stringify(obj);
-    localStorage.setItem("back", json);
-    console.log("quwildi");
-  } else {
-    console.log("tuldir");
-  }
-}
-function login(e) {
+    password: pass,
+  });
+  localStorage.setItem("formDate", JSON.stringify(form_date));
+  dispDate();
   e.preventDefault();
-  let user_name = document.querySelector("#name").value;
-  let password = document.querySelector("#password").value;
-  let user = localStorage.getItem("back");
-  let data = JSON.parse(user);
-  if (user == null) {
-    console.log("buw");
-  } else if (user_name == data.user_name && password == data.password) {
-    console.log("login buldi");
+});
+function dispDate() {
+  let adddd = JSON.parse(localStorage.getItem("formDate"));
+  if (localStorage.getItem("formDate")) {
+    let table = document.querySelector("table");
+    adddd.forEach((data) => {
+      table.innerHTML += `
+        <tr>
+            <td>${data.user}</td>
+            <td>${data.email}</td>
+            <td>${data.password}</td>
+        </tr>
+        `;
+    });
   }
 }
+dispDate();
